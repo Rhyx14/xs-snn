@@ -16,6 +16,8 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         '''
         转换为聚合模式运行的SNN层
 
+        hooks: 获取输入 list[ callable(input)]
+
         // layer 必须是ANN层
         '''
         super().__init__()
@@ -69,6 +71,9 @@ class Aggregated(torch.nn.Module):
     def __init__(self,layer:torch.nn.Module,hooks=None,name='agg'):
         '''
         时间聚合模式运行
+
+        hooks: 获取输入 list[ callable(input)]
+
         '''
         super().__init__()
         self.name=name
@@ -104,6 +109,11 @@ class Identical_Wrapper(torch.nn.Module):
     
     id_map=defaultdict(lambda : 0)
     def __init__(self,hooks=None,name='idt') -> None:
+        '''
+        等价包装器,不执行任何运算
+        
+        hooks: 获取输入 list[ callable(input)]
+        '''
         super().__init__()
 
         self.comments=name
