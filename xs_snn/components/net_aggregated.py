@@ -28,7 +28,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
 
         self.state_hooks=[]
         if hooks is not None:
-            assert isinstance(list)
+            assert isinstance(hooks,list)
             self.state_hooks.extend(hooks)
                 
         self._layer=layer
@@ -84,7 +84,7 @@ class Aggregated(torch.nn.Module):
 
         self.state_hooks=[]
         if hooks is not None:
-            assert isinstance(list)
+            assert isinstance(hooks,list)
             self.state_hooks.extend(hooks)
     
     def forward(self,x):
@@ -122,7 +122,7 @@ class Identical_Wrapper(torch.nn.Module):
 
         self.state_hooks=[]
         if hooks is not None:
-            assert isinstance(list)
+            assert isinstance(hooks,list)
             self.state_hooks.extend(hooks)
         pass
 
