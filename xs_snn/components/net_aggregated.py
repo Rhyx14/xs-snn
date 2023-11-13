@@ -76,7 +76,7 @@ class Aggregated(torch.nn.Module):
 
         '''
         super().__init__()
-        self.name=name
+        self.comments=name
         self.id=Aggregated.id_map[name]
         Aggregated.id_map[name]+=1
 
