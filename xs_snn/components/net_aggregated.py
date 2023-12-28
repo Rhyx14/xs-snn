@@ -1,9 +1,6 @@
 from collections import defaultdict
 from types import NoneType
-from typing import Any
-
 import torch
-
 from .interface_ISNN import ISNN
 from .interface_IRateNorm import IRateNorm,INonRateNorm
 
@@ -104,29 +101,3 @@ class Aggregated(torch.nn.Module):
                 rslt.append(self._layer(x[step]))
         
         return torch.stack(rslt)
-
-class Identical_Wrapper(torch.nn.Module):
-    
-    id_map=defaultdict(lambda : 0)
-    def __init__(self,hooks=None,name='idt') -> None:
-        '''
-        等价包装器,不执行任何运算
-        
-        hooks: 获取输入 list[ callable(input)]
-        '''
-        super().__init__()
-
-        self.comments=name
-        self.id=Identical_Wrapper.id_map[name]
-        Identical_Wrapper.id_map[name]+=1
-
-        self.state_hooks=[]
-        if hooks is not None:
-            assert isinstance(hooks,list)
-            self.state_hooks.extend(hooks)
-        pass
-
-    def __call__(self, x,*args: Any, **kwds: Any) -> Any:
-
-        for hooks in self.state_hooks: hooks(x)
-        return x

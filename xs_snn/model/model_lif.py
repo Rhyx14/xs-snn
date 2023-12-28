@@ -42,7 +42,7 @@ class LIF(torch.nn.Module,ISNN):
     g=G_arctan.apply
     id=0
 
-    def __init__(self,delay=None,vth_base=0.6,small_id=0,**kwargs):
+    def __init__(self,delay=None,vth_base=0.6,tau=0.25,small_id=0,**kwargs):
         super(LIF,self).__init__()
         
         # serial number
@@ -52,7 +52,7 @@ class LIF(torch.nn.Module,ISNN):
         self.vth_base=vth_base  
         self.delay=delay
 
-        self.tau=0.25
+        self.tau=tau
 
         self.Vth=vth_base
         self.reset()

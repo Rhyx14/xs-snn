@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from ..components.net_aggregated import Aggregated_Spiking_Layer
+from ..components.net_aggregated import Aggregated_Spiking_Layer as ASL
+from ..components.net_aggregated_spikingjelly import Aggregated_Spiking_Layer as ASL_spikingjelly
 def fuse(conv, bn):
     w = conv.weight
     mean = bn.running_mean
@@ -59,7 +60,7 @@ class Fuse_BN():
     '''
     def __call__(self,module):
         
-        if isinstance(module,(Aggregated_Spiking_Layer,)):
+        if isinstance(module,(ASL,ASL_spikingjelly)):
             if isinstance(module._layer,(nn.Conv2d)):
                 _conv_layer=module._layer
                 if isinstance(module._norm,(RateBatchNorm,BatchNorm)):
