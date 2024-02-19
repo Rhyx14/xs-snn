@@ -56,8 +56,16 @@ class SNN_To_CUDA():
                     module.__dict__[key]=module.__dict__[key].cuda(self.device)
                     pass
 
-class SNN_Reset():
+class SNN_Reset:
+    def __init__(self,extra_models:tuple=()) -> None:
+        """_summary_
+            Reset the neuron states
+        Args:
+            extra_models (tuple): reset instances beyond ISNN. Such an instance should have reset() method. 
+        """
+        self._models=(ISNN,*extra_models)
+        pass
     def __call__(self,module):
-        if isinstance(module, ISNN):
+        if isinstance(module, self._models):
             module.reset()
         return

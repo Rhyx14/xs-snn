@@ -29,6 +29,11 @@ def split_parameters_for_SNN(module):
     assert len(list(module.parameters())) == len(params_decay) + len(params_no_decay)
     return params_decay, params_no_decay
 
+class split_parameters():
+    def __init__(group_list) -> None:
+
+        pass
+
 def split_bn_and_snn_parameters(module):
     '''
     get params of bn and spiking neuron
