@@ -1,0 +1,72 @@
+from collections import defaultdict
+from types import NoneType
+from typing import Any
+import torch
+import spikingjelly.activation_based.base as SJ_Base
+from spikingjelly.clock_driven.layer import SeqToANNContainer, MultiStepContainer
+class Aggregated_Spiking_Layer(torch.nn.Module):
+    ID_Map=defaultdict(int)
+    def __init__(self,layer:SeqToANNContainer | MultiStepContainer,norm:torch.nn.Module,neuron_model:SJ_Base.MemoryModule,hooks=None,name='asl'):
+        '''
+        hooks:  list[ callable(input)]
+        '''
+        super().__init__()
+
+        self.name=name
+        self.id=Aggregated_Spiking_Layer.ID_Map[self.name]
+        Aggregated_Spiking_Layer.ID_Map[self.name]+=1
+
+        self.state_hooks=[]
+        if hooks is not None:
+            assert isinstance(hooks,list)
+            self.state_hooks.extend(hooks)
+                
+        self._layer=layer
+        self._norm=norm
+        self._neuron_model=neuron_model
+
+        assert isinstance(self._layer,(SeqToANNContainer,MultiStepContainer,NoneType))
+        assert isinstance(self._neuron_model,(SJ_Base.MemoryModule,NoneType))
+
+    def forward(self,x):
+        '''
+        x: [t,b,c,h,w]
+        '''
+        for hooks in self.state_hooks: hooks(x)
+
+        out = x
+        if self._layer is not None:
+            out=self._layer(out)
+
+        if self._norm is not None:
+            out=self._norm(out)
+
+        if self._neuron_model is not None:
+            out = self._neuron_model(out)
+
+        return out
+
+
+class Identical_Wrapper(torch.nn.Module):
+    
+    ID_Map=defaultdict(lambda : 0)
+    def __init__(self,hooks=None,name='idt') -> None:
+        '''
+        hooks: list[ callable(input)]
+        '''
+        super().__init__()
+
+        self.comments=name
+        self.id=Identical_Wrapper.ID_Map[name]
+        Identical_Wrapper.ID_Map[name]+=1
+
+        self.state_hooks=[]
+        if hooks is not None:
+            assert isinstance(hooks,list)
+            self.state_hooks.extend(hooks)
+        pass
+
+    def __call__(self, x,*args: Any, **kwds: Any) -> Any:
+
+        for hooks in self.state_hooks: hooks(x)
+        return x
