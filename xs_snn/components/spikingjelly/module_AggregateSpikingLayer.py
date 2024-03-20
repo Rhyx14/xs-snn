@@ -52,6 +52,8 @@ class Identical_Wrapper(torch.nn.Module):
     ID_Map=defaultdict(lambda : 0)
     def __init__(self,hooks=None,name='idt') -> None:
         '''
+        An empty module does nothing, return the original input
+
         hooks: list[ callable(input)]
         '''
         super().__init__()
