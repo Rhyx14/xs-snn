@@ -6,7 +6,7 @@ import spikingjelly.activation_based.base as SJ_Base
 from spikingjelly.clock_driven.layer import SeqToANNContainer, MultiStepContainer
 class Aggregated_Spiking_Layer(torch.nn.Module):
     ID_Map=defaultdict(int)
-    def __init__(self,layer:SeqToANNContainer | MultiStepContainer,norm:torch.nn.Module,neuron_model:SJ_Base.MemoryModule,hooks=None,name='asl'):
+    def __init__(self,layer:SeqToANNContainer | MultiStepContainer = None,norm:torch.nn.Module = None,neuron_model:SJ_Base.MemoryModule = None,hooks=None,name='asl'):
         '''
         hooks:  list[ callable(input)]
         '''
@@ -26,6 +26,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         self._neuron_model=neuron_model
 
         assert isinstance(self._layer,(SeqToANNContainer,MultiStepContainer,NoneType))
+        
         assert isinstance(self._neuron_model,(SJ_Base.MemoryModule,NoneType))
 
     def forward(self,x):
