@@ -27,7 +27,7 @@ def split_parameters_for_SNN(module):
         elif isinstance(m, MemoryModule):
             params_no_decay.extend([*m.parameters()])
 
-        elif hasattr(m,'split_parameters') == 0:
+        elif hasattr(m,'split_parameters'):
             _decay,_no_decay=m.split_parameters()
             params_decay.extend([*_decay])
             params_no_decay.extend([*_no_decay])
