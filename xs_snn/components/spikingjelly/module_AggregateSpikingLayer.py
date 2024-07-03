@@ -44,6 +44,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
 
         if self._neuron_model is not None:
             out = self._neuron_model(out)
+        self.output_shape=out.shape
 
         return out
 
