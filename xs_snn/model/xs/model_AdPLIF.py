@@ -1,5 +1,5 @@
 import torch
-from xs_snn.components import ISNN
+from ...components.xs.interface_ISNN import ISNN
 
 class firing(torch.autograd.Function):
     @staticmethod

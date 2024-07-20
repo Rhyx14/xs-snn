@@ -1,7 +1,7 @@
 
 import torch
-from ..components.interface_ISNN import ISNN
-from ..utils.override import Override
+from ...components.xs.interface_ISNN import ISNN
+from ...utils.override import Override
 
 class G_arctan(torch.autograd.Function):
     """ 
@@ -84,5 +84,5 @@ class LIF(torch.nn.Module,ISNN):
         return o
 
     def extra_repr(self):
-        s = (f'delay={self.delay},id={self.id},vth_base={self.vth_base}')
+        s = (f'delay={self.delay},id={self.id},vth_base={self.vth_base},tau={self.tau}')
         return s

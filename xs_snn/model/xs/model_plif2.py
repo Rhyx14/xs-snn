@@ -1,6 +1,6 @@
 import torch
-from ..components.interface_ISNN import ISNN
-from ..utils.override import Override
+from ...components.xs.interface_ISNN import ISNN
+from ...utils.override import Override
 
 class firing(torch.autograd.Function):
     @staticmethod

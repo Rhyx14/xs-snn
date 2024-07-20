@@ -41,15 +41,18 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         for hooks in self.state_hooks: hooks(x)
 
         _steps=x.shape[0]
-        out=[]
-        for i in range(_steps):
-            out.append(self._layer(x[i]))
+        if self._layer is None:
+            out=x
+        else:
+            out=[]
+            for i in range(_steps):
+                out.append(self._layer(x[i]))
 
         if self._norm is not None:
             out=self._norm(out)
 
         if self._neuron_model is None:
-            return out
+            return torch.stack(out)
 
         # neuron model updating
         if self._neuron_model.aggregation():
@@ -59,45 +62,3 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
             for step in range(_steps):
                 _rslt.append(self._neuron_model(out[step]))
             return torch.stack(_rslt)
-            
-class Aggregated(torch.nn.Module):
-    '''
-    时间聚合模式运行,auto grad
-    '''
-    id_map=defaultdict(lambda : 0)
-    def __init__(self,layer:torch.nn.Module,hooks=None,name='agg'):
-        '''
-        时间聚合模式运行
-
-        hooks: 获取输入 list[ callable(input)]
-
-        '''
-        super().__init__()
-        self.comments=name
-        self.id=Aggregated.id_map[name]
-        Aggregated.id_map[name]+=1
-
-        self._layer=layer
-
-        self.state_hooks=[]
-        if hooks is not None:
-            assert isinstance(hooks,list)
-            self.state_hooks.extend(hooks)
-    
-    def forward(self,x):
-        '''
-        前传
-
-        x [t,b,*size]
-        '''
-
-        for hooks in self.state_hooks: hooks(x)
-
-        if isinstance(self._layer,(ISNN,)) and self._layer.aggregation():
-            return self._layer(x)
-        else:
-            rslt=[]
-            for step in range(x.shape[0]):
-                rslt.append(self._layer(x[step]))
-        
-        return torch.stack(rslt)
