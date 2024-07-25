@@ -60,7 +60,7 @@ class Identical_Wrapper(torch.nn.Module):
         '''
         super().__init__()
 
-        self.comments=name
+        self.name=name
         self.id=Identical_Wrapper.ID_Map[name]
         Identical_Wrapper.ID_Map[name]+=1
 

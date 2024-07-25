@@ -62,7 +62,7 @@ def check_norm_sj(module):
     if isinstance(module,ASL_sj):
         assert module._norm is None
 
-from ..components.xs.net_aggregated import Aggregated_Spiking_Layer as ASL_xs
+from ..components.xs.aggregated_spiking_layer import Aggregated_Spiking_Layer as ASL_xs
 from ..components.xs.net_RateBN import RateBatchNorm as Rbn_xs
 @torch.no_grad()
 def fuse_rateBatchNorm_xs(module):
