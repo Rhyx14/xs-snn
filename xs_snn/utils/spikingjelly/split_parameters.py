@@ -1,7 +1,5 @@
 # from https://zhuanlan.zhihu.com/p/267535838?ivk_sa=1024320u
 import torch
-from torchvision import models
-import torch.nn.modules as modules
 from spikingjelly.activation_based.base import MemoryModule
 def split_parameters_for_SNN(module):
     '''
@@ -18,11 +16,11 @@ def split_parameters_for_SNN(module):
             params_decay.append(m.weight)
             if m.bias is not None:
                 params_no_decay.append(m.bias)
-        elif isinstance(m, modules.conv._ConvNd):
+        elif isinstance(m, torch.nn.modules.conv._ConvNd):
             params_decay.append(m.weight)
             if m.bias is not None:
                 params_no_decay.append(m.bias)
-        elif isinstance(m, modules.batchnorm._BatchNorm):
+        elif isinstance(m, torch.nn.modules.batchnorm._BatchNorm):
             params_no_decay.extend([*m.parameters()])
         elif isinstance(m, MemoryModule):
             params_no_decay.extend([*m.parameters()])

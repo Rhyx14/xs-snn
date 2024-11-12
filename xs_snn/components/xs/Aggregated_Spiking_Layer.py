@@ -1,9 +1,6 @@
-from collections import defaultdict
 from types import NoneType
 import torch
-from .interface_ISNN import ISNN
-from .interface_IRateNorm import IRateNorm,INonRateNorm
-
+from .Interface_ISNN import ISNN
 class Aggregated_Spiking_Layer(torch.nn.Module):
     '''
     转换为聚合模式运行的SNN层,auto grad, with neuron model
@@ -32,7 +29,6 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         self._norm=norm
         self._neuron_model=neuron_model
         assert isinstance(self._neuron_model,(ISNN,NoneType))
-        assert isinstance(self._norm,(IRateNorm,INonRateNorm,NoneType))
 
         self._delay=False
     def _to_delay_mode(self):

@@ -3,18 +3,18 @@ import torch
 from typing import Any
 class Identical_Wrapper(torch.nn.Module):
     
-    id_map=defaultdict(lambda : 0)
+    ID_Map=defaultdict(lambda : 0)
     def __init__(self,hooks=None,name='idt') -> None:
         '''
-        等价包装器,不执行任何运算
-        
-        hooks: 获取输入 list[ callable(input)]
+        An empty module does nothing, return the original input
+
+        hooks: list[ callable(input)]
         '''
         super().__init__()
 
-        self.comments=name
-        self.id=Identical_Wrapper.id_map[name]
-        Identical_Wrapper.id_map[name]+=1
+        self.name=name
+        self.id=Identical_Wrapper.ID_Map[name]
+        Identical_Wrapper.ID_Map[name]+=1
 
         self.state_hooks=[]
         if hooks is not None:

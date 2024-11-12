@@ -1,2 +1,1 @@
-from .module_AggregateSpikingLayer import Identical_Wrapper,Aggregated_Spiking_Layer
-from .module_RateBatchNorm import RateBatchNorm
+from .Aggregated_Spiking_Layer import Aggregated_Spiking_Layer

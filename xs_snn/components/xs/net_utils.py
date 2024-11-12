@@ -1,19 +1,16 @@
 import torch
 import torch.nn as nn
 
-from .interface_ISNN import ISNN
-from .net_RateBN import RateBatchNorm
-
 def norm_layer_tracking_off(net):
     # 关闭norm层均值计算跟踪
     for m in net.modules():
-        if isinstance(m,(torch.nn.BatchNorm2d,RateBatchNorm)):
+        if isinstance(m,(torch.nn.BatchNorm2d)):
             m.track_running_stats=False
 
 def norm_layer_tracking_on(net):
     # 开启norm层均值计算跟踪
     for m in net.modules():
-        if isinstance(m,(torch.nn.BatchNorm2d,RateBatchNorm)):
+        if isinstance(m,(torch.nn.BatchNorm2d)):
             m.track_running_stats=True
 
 def bilinear_kernel(in_channels, out_channels, kernel_size):
@@ -37,7 +34,7 @@ def kaiming_init(net):
         if(m==net): continue
         if isinstance(m, nn.Conv2d):
             nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-        elif isinstance(m, (nn.BatchNorm2d,RateBatchNorm)):
+        elif isinstance(m, (nn.BatchNorm2d)):
             nn.init.constant_(m.weight, 1)
             nn.init.constant_(m.bias, 0)
 
