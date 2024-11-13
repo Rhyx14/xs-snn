@@ -1,9 +1,11 @@
 import torch
-class ISNN():
+class ISNN(torch.Module):
     '''
     接口:该对象为SNN神经元模型
     '''
     def __init__(self) -> None:
+        self._neuromorphic_states={}
+        self.state_hooks=[]
         pass
     
     def aggregation(self):
@@ -22,8 +24,6 @@ class ISNN():
         '''
         添加托管的到isnn神经元的突触变量
         '''
-        if not hasattr(self,'_neuromorphic_states'):
-            self._neuromorphic_states={}
         self._neuromorphic_states.update(dict)
 
     class SNN_To_CUDA():

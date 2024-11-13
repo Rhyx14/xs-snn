@@ -1,11 +1,12 @@
 from types import NoneType
+from collections import defaultdict
 import torch
 from .Interface_ISNN import ISNN
 class Aggregated_Spiking_Layer(torch.nn.Module):
     '''
     转换为聚合模式运行的SNN层,auto grad, with neuron model
     '''
-    id=0
+    ID_Map=defaultdict(int)
     def __init__(self,layer:torch.nn.Module,norm:torch.nn.Module=None,neuron_model:ISNN=None,hooks=None,name='asl'):
         '''
         转换为聚合模式运行的SNN层
@@ -16,9 +17,9 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         '''
         super().__init__()
 
-        self.comments=name
-        self.id=Aggregated_Spiking_Layer.id
-        Aggregated_Spiking_Layer.id+=1
+        self.name=name
+        self.id=Aggregated_Spiking_Layer.ID_Map[self.name]
+        Aggregated_Spiking_Layer.ID_Map[self.name]+=1
 
         self.state_hooks=[]
         if hooks is not None:
@@ -31,6 +32,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         assert isinstance(self._neuron_model,(ISNN,NoneType))
 
         self._delay=False
+        
     def _to_delay_mode(self):
         self._delay=True
 
