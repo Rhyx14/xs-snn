@@ -17,7 +17,7 @@ setup(
           'Programming Language :: Python :: 3.10',
       ],
       install_requires=['torch','einops'],
-    #   entry_points={'console_scripts': ['pmm=pimm.pimm_module:main']},
+    #   entry_points={'console_scripts': ['pmm=pi~mm.pimm_module:main']},
     #   package_data={'': ['*.json']},
       author='rhyx14', # 作者
       description='Tools for SNN simulation', # 介绍
@@ -25,6 +25,6 @@ setup(
     #   long_description_content_type='text/markdown', # 长介绍使用的类型
       # url='https://github.com/Rhyx14/secretary', # 包主页，一般是github项目主页
       license='MIT', # 协议
-      python_requires='>=3.10'
+      python_requires='>=3.9'
     #   keywords='pimm source manager'  # 关键字 搜索用
     )
