@@ -1,9 +1,10 @@
 import torch
-class ISNN(torch.Module):
+class ISNN(torch.nn.Module):
     '''
     接口:该对象为SNN神经元模型
     '''
     def __init__(self) -> None:
+        super().__init__()
         self._neuromorphic_states={}
         self.state_hooks=[]
         pass
