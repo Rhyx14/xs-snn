@@ -7,7 +7,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
     转换为聚合模式运行的SNN层,auto grad, with neuron model
     '''
     ID_Map=defaultdict(int)
-    def __init__(self,layer:torch.nn.Module,norm:torch.nn.Module=None,neuron_model:ISNN=None,hooks=None,name='asl'):
+    def __init__(self,layer:torch.nn.Module,norm:torch.nn.Module=None,neuron_model:ISNN=None,input_hooks=None,name='asl'):
         '''
         转换为聚合模式运行的SNN层
 
@@ -21,10 +21,10 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         self.id=Aggregated_Spiking_Layer.ID_Map[self.name]
         Aggregated_Spiking_Layer.ID_Map[self.name]+=1
 
-        self.state_hooks=[]
-        if hooks is not None:
-            assert isinstance(hooks,list)
-            self.state_hooks.extend(hooks)
+        self.input_hooks=[]
+        if input_hooks is not None:
+            assert isinstance(input_hooks,list)
+            self.input_hooks.extend(input_hooks)
                 
         self._layer=layer
         self._norm=norm
@@ -40,7 +40,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         '''
         x: [t,b,c,h,w]
         '''
-        for hooks in self.state_hooks: hooks(x)
+        for hooks in self.input_hooks: x=hooks(x)
 
         _steps=x.shape[0]
         if self._layer is None:
