@@ -29,6 +29,10 @@ def split_parameters_for_SNN(module):
             _decay,_no_decay=m.split_parameters()
             params_decay.extend([*_decay])
             params_no_decay.extend([*_no_decay])
+        else:
+            for _d in m.__dict__:
+                if isinstance(_d,torch.nn.Parameter):
+                    params_no_decay.append(_d)
 
     assert len(list(module.parameters())) == len(params_decay) + len(params_no_decay)
     return params_decay, params_no_decay

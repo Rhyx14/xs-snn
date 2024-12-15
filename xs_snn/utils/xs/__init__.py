@@ -1,2 +1,2 @@
-__all__=['split_bn_and_snn_parameters','split_parameters_for_SNN']
-from .split_parameters import split_bn_and_snn_parameters,split_parameters_for_SNN
+__all__=['split_parameters_for_SNN']
+from .split_parameters import split_parameters_for_SNN
