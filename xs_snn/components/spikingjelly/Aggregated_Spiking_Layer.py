@@ -1,5 +1,6 @@
 from collections import defaultdict
 from types import NoneType
+from ..Identical_Wrapper import Identical_Wrapper
 from typing import Any
 import torch
 import spikingjelly.activation_based.base as SJ_Base
@@ -27,7 +28,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
 
         assert isinstance(self._layer,(SeqToANNContainer,MultiStepContainer,NoneType))
         
-        assert isinstance(self._neuron_model,(SJ_Base.MemoryModule,NoneType))
+        assert isinstance(self._neuron_model,(SJ_Base.MemoryModule,Identical_Wrapper,NoneType))
 
     def forward(self,x):
         '''
