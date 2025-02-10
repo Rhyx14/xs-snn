@@ -26,7 +26,7 @@ class Aggregated_Spiking_Layer(torch.nn.Module):
         self._norm=norm
         self._neuron_model=neuron_model
 
-        assert isinstance(self._layer,(SeqToANNContainer,MultiStepContainer,NoneType))
+        # assert isinstance(self._layer,(SeqToANNContainer,MultiStepContainer,NoneType))
         
         assert isinstance(self._neuron_model,(SJ_Base.MemoryModule,Identical_Wrapper,NoneType))
 
