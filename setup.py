@@ -8,7 +8,7 @@ long_description = None
 setup(
       name='xs_snn', # 包名称
       packages=find_packages(exclude=['__pycache__']), # 需要处理的包目录
-      version='0.3.250210', # 版本
+      version='0.4.250222', # 版本
       classifiers=[
           'Development Status :: 3 - Alpha',
           'License :: OSI Approved :: MIT License',
@@ -16,7 +16,7 @@ setup(
         #   'Operating System :: OS Independent',
           'Programming Language :: Python :: 3.10',
       ],
-      install_requires=['torch','einops'],
+      install_requires=['torch','einops','spikingjelly<=0.0.0.0.14'],
     #   entry_points={'console_scripts': ['pmm=pimm.pimm_module:main']},
     #   package_data={'': ['*.json']},
       author='rhyx14', # 作者

@@ -1,2 +1,0 @@
-from .Interface_ISNN import ISNN
-from .Aggregated_Spiking_Layer import Aggregated_Spiking_Layer
