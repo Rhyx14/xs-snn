@@ -1,28 +1,28 @@
 from collections import defaultdict
 import torch
 from typing import Any
-class Identical_Wrapper(torch.nn.Module):
-    
+from .Data_Hook_Component import DataHookComponent
+class Identical_Wrapper(torch.nn.Module,DataHookComponent):
+    class BasicHook():
+        def __call__(self,x):
+            self.x=x
+            return x
+
     ID_Map=defaultdict(lambda : 0)
-    def __init__(self,hooks=None,name='idt') -> None:
+    def __init__(self,datahook : list | Any = None,name: str = 'idt') -> None:
         '''
         An empty module does nothing, return the original input
 
         hooks: list[ callable(input)]
         '''
         super().__init__()
+        DataHookComponent.__init__(self,datahook)
 
         self.name=name
         self.id=Identical_Wrapper.ID_Map[name]
         Identical_Wrapper.ID_Map[name]+=1
 
-        self.state_hooks=[]
-        if hooks is not None:
-            assert isinstance(hooks,list)
-            self.state_hooks.extend(hooks)
-        pass
-
     def __call__(self, x,*args: Any, **kwds: Any) -> Any:
-
-        for hooks in self.state_hooks: hooks(x)
+        for _datahook in self._datahooks:
+            x=_datahook(x)
         return x
