@@ -26,3 +26,6 @@ class Identical_Wrapper(torch.nn.Module,DataHookComponent):
         for _datahook in self._datahooks:
             x=_datahook(x)
         return x
+
+    def extra_repr(self) -> str:
+        return f'name={self.name}, id={self.id}'

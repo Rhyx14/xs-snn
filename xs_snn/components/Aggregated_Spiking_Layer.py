@@ -56,3 +56,5 @@ class Aggregated_Spiking_Layer(torch.nn.Module,DataHookComponent):
 
         return _out
 
+    def extra_repr(self) -> str:
+        return f'name={self.name}, id={self.id}'
