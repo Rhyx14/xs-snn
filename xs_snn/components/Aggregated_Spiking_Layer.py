@@ -1,10 +1,9 @@
 from collections import defaultdict
 from typing import Any
 import torch
-import spikingjelly.activation_based.base as SJ_Base
-from spikingjelly.clock_driven.layer import SeqToANNContainer, MultiStepContainer
+from .TimestepContainer import TimestepContainer
 from .Data_Hook_Component import DataHookComponent
-
+from .NeuronBase import NeuronBase
 class Aggregated_Spiking_Layer(torch.nn.Module,DataHookComponent):
     class BasicHook():
         '''
@@ -20,9 +19,9 @@ class Aggregated_Spiking_Layer(torch.nn.Module,DataHookComponent):
 
     ID_Map=defaultdict(int)
     def __init__(self,
-                 layer:SeqToANNContainer | MultiStepContainer | torch.nn.Module,
+                 layer: TimestepContainer | torch.nn.Module,
                  norm:torch.nn.Module,
-                 neuron_model:SJ_Base.MemoryModule | torch.nn.Module,
+                 neuron_model: NeuronBase | torch.nn.Module,
                  datahook: list | Any=None,
                  name : str = 'asl'):
         '''

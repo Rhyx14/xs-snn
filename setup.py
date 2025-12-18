@@ -8,7 +8,7 @@ long_description = None
 setup(
       name='xs_snn', # 包名称
       packages=find_packages(exclude=['__pycache__']), # 需要处理的包目录
-      version='0.4.250812', # 版本
+      version='0.5.1.1218', # 版本
       classifiers=[
           'Development Status :: 3 - Alpha',
           'License :: OSI Approved :: MIT License',
@@ -16,10 +16,11 @@ setup(
         #   'Operating System :: OS Independent',
           'Programming Language :: Python :: 3.10',
       ],
-      install_requires=['torch','einops','spikingjelly<=0.0.0.0.14'],
+      install_requires=['torch','einops'],
     #   entry_points={'console_scripts': ['pmm=pimm.pimm_module:main']},
     #   package_data={'': ['*.json']},
       author='rhyx14', # 作者
+      email='xu_hn@outlook.com',
       description='Tools for SNN simulation', # 介绍
     #   long_description=long_description, # 长介绍，在pypi项目页显示
     #   long_description_content_type='text/markdown', # 长介绍使用的类型
