@@ -9,16 +9,17 @@ class TimestepContainer(torch.nn.Module):
             self.forward=self._multi_step_forward
         pass
 
-    def _stateless_forward(self,x:torch.Tensor):
+    def _stateless_forward(self,x:torch.Tensor) -> torch.Tensor:
         t=x.shape[0]
         x=x.flatten(0,1)
         x=self._torch_module(x)
-        return x.view(t,-1,x.shape[1:])
+        return x.view(t,-1,*x.shape[1:])
     
-    def _multi_step_forward(self,x:torch.Tensor):
+    def _multi_step_forward(self,x:torch.Tensor) -> torch.Tensor:
         t=x.shape[0]
         rslt=[]
-        for _ in range(t):
-            x=self._torch_module(x)
-            rslt.append(x)
+        for _t in range(t):
+            _tmp=self._torch_module(x[_t])
+            rslt.append(_tmp)
         return torch.stack(rslt,dim=0)
+    

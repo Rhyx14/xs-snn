@@ -1,3 +1,11 @@
 # from xs_snn import *
 
-SNN定义
+components and implementations of spiking neuron model and normalization method
+
+AGSL: 
+
+MLF:
+
+PLIF:
+
+TEBN:

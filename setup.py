@@ -8,7 +8,7 @@ long_description = None
 setup(
       name='xs_snn', # 包名称
       packages=find_packages(exclude=['__pycache__']), # 需要处理的包目录
-      version='0.5.1.1218', # 版本
+      version='0.5.0.1218', # 版本
       classifiers=[
           'Development Status :: 3 - Alpha',
           'License :: OSI Approved :: MIT License',
