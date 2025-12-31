@@ -39,9 +39,10 @@ def fuse_conv2d(conv, bn):
             conv.kernel_size,
             conv.stride,
             conv.padding,
-            conv.dilation,
+            conv.output_padding,
             conv.groups,
             bias=True,
+            dilation=conv.dilation,
             padding_mode=conv.padding_mode
         )
 
